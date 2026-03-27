@@ -27,6 +27,10 @@ class LeadSeeder extends Seeder
 
     private function importFile(string $path, string $category): void
     {
+        if (! file_exists($path)) {
+            return;
+        }
+
         $data = json_decode(file_get_contents($path), true);
 
         foreach ($data as $item) {
