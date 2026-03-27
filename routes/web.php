@@ -1,0 +1,42 @@
+<?php
+
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\LeadController;
+use App\Http\Controllers\Admin\StripeWebhookController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicController;
+use Illuminate\Support\Facades\Route;
+
+// Public
+Route::get('/', [PublicController::class, 'home'])->name('home');
+Route::get('/demo', [PublicController::class, 'demo'])->name('demo');
+Route::get('/demo/{code}', [PublicController::class, 'showDemo'])->name('demo.show');
+Route::post('/api/demo/view/{code}', [PublicController::class, 'trackView'])->name('demo.track');
+
+// Stripe webhook (no CSRF)
+Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle'])
+    ->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class]);
+
+// Admin system — login/auth via Breeze
+Route::prefix('system')->name('system.')->group(function () {
+    Route::middleware('guest')->group(function () {
+        Route::get('/login', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'create'])->name('login');
+        Route::post('/login', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'store']);
+    });
+
+    Route::middleware('auth')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+        Route::get('/leads',            [LeadController::class, 'index'])->name('leads.index');
+        Route::post('/leads',           [LeadController::class, 'store'])->name('leads.store');
+        Route::get('/leads/{lead}',     [LeadController::class, 'show'])->name('leads.show');
+        Route::put('/leads/{lead}',     [LeadController::class, 'update'])->name('leads.update');
+        Route::get('/leads/{lead}/editor',       [LeadController::class, 'editor'])->name('leads.editor');
+        Route::put('/leads/{lead}/site',         [LeadController::class, 'saveSite'])->name('leads.save-site');
+        Route::get('/leads/{lead}/checkout-link',[LeadController::class, 'generateCheckoutLink'])->name('leads.checkout-link');
+
+        Route::post('/logout', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'destroy'])->name('logout');
+    });
+});
+
+require __DIR__.'/auth.php';
