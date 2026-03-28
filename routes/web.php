@@ -2,8 +2,9 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LeadController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\StripeWebhookController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,8 +21,8 @@ Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle'])
 // Admin system — login/auth via Breeze
 Route::prefix('system')->name('system.')->group(function () {
     Route::middleware('guest')->group(function () {
-        Route::get('/login', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'create'])->name('login');
-        Route::post('/login', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'store']);
+        Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+        Route::post('/login', [AuthenticatedSessionController::class, 'store']);
     });
 
     Route::middleware('auth')->group(function () {
@@ -35,7 +36,10 @@ Route::prefix('system')->name('system.')->group(function () {
         Route::put('/leads/{lead}/site',         [LeadController::class, 'saveSite'])->name('leads.save-site');
         Route::get('/leads/{lead}/checkout-link',[LeadController::class, 'generateCheckoutLink'])->name('leads.checkout-link');
 
-        Route::post('/logout', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'destroy'])->name('logout');
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
+        Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+        Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
     });
 });
 

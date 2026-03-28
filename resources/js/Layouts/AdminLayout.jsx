@@ -3,6 +3,7 @@ import { Link, router } from '@inertiajs/react';
 const navItems = [
     { href: '/system/dashboard', label: 'Dashboard', icon: '📊' },
     { href: '/system/leads', label: 'Leads', icon: '👥' },
+    { href: '/system/profile', label: 'Profile', icon: '👤' },
 ];
 
 export default function AdminLayout({ children, title }) {
