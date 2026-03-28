@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ActivityLog extends Model
 {
+    protected $table = 'activity_log';
+
     protected $fillable = ['lead_id', 'action', 'details'];
 
     protected $casts = [
