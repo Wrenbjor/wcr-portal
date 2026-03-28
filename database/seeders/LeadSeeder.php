@@ -164,14 +164,13 @@ class LeadSeeder extends Seeder
         ];
 
         foreach ($leads as $data) {
-            Lead::firstOrCreate(
-                ['repo_name' => $data['repo_name']],
-                array_merge($data, [
-                    'demo_code'  => strtoupper(Str::random(6)),
-                    'status'     => 'prospect',
-                    'demo_views' => 0,
-                ])
-            );
+            $lead = Lead::firstOrNew(['repo_name' => $data['repo_name']]);
+            if (! $lead->exists) {
+                $lead->demo_code  = strtoupper(Str::random(6));
+                $lead->status     = 'prospect';
+                $lead->demo_views = 0;
+            }
+            $lead->fill($data)->save();
         }
     }
 }
