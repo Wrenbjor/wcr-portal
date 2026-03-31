@@ -90,74 +90,105 @@ export default function Index({ leads, filters }) {
                     </Link>
                 </div>
 
-                {/* Table */}
-                <div className="bg-[#1e293b] border border-slate-700 rounded-2xl overflow-hidden">
-                    <table className="w-full text-sm">
-                        <thead>
-                            <tr className="border-b border-slate-700">
-                                <th className="text-left px-4 py-3 text-slate-400 font-medium">Business</th>
-                                <th className="text-left px-4 py-3 text-slate-400 font-medium">Trade</th>
-                                <th className="text-left px-4 py-3 text-slate-400 font-medium">Category</th>
-                                <th className="text-left px-4 py-3 text-slate-400 font-medium">City</th>
-                                <th className="text-left px-4 py-3 text-slate-400 font-medium">Status</th>
-                                <th className="text-right px-4 py-3 text-slate-400 font-medium">Views</th>
-                                <th className="text-left px-4 py-3 text-slate-400 font-medium">Tier</th>
-                                <th className="text-left px-4 py-3 text-slate-400 font-medium">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {leads.data.map((lead) => (
-                                <tr
-                                    key={lead.id}
-                                    className="border-b border-slate-800 hover:bg-slate-800/40 transition-colors cursor-pointer"
-                                    onClick={() => router.visit(`/system/leads/${lead.id}`)}
-                                >
-                                    <td className="px-4 py-3 text-white font-medium">{lead.business_name}</td>
-                                    <td className="px-4 py-3 text-slate-400">{lead.trade_type}</td>
-                                    <td className="px-4 py-3">
-                                        <span className="capitalize text-slate-400">{lead.category}</span>
-                                    </td>
-                                    <td className="px-4 py-3 text-slate-400">{lead.city}</td>
-                                    <td className="px-4 py-3">
-                                        <span className={`px-2 py-0.5 rounded text-xs font-medium capitalize ${STATUS_COLORS[lead.status] ?? 'bg-slate-700 text-slate-300'}`}>
-                                            {lead.status.replace('_', ' ')}
-                                        </span>
-                                    </td>
-                                    <td className="px-4 py-3 text-right text-slate-300">{lead.demo_views}</td>
-                                    <td className="px-4 py-3">
-                                        {lead.tier ? (
-                                            <span className={`capitalize font-medium text-xs ${TIER_COLORS[lead.tier]}`}>{lead.tier}</span>
-                                        ) : (
-                                            <span className="text-slate-600">—</span>
-                                        )}
-                                    </td>
-                                    <td className="px-4 py-3" onClick={(e) => e.stopPropagation()}>
-                                        <div className="flex gap-2">
-                                            <Link
-                                                href={`/system/leads/${lead.id}`}
-                                                className="text-[#C9A96E] hover:underline text-xs"
-                                            >
-                                                View
-                                            </Link>
-                                            <a
-                                                href={`/demo/${lead.demo_code}`}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                                className="text-slate-400 hover:text-white text-xs"
-                                            >
-                                                Demo
-                                            </a>
-                                        </div>
-                                    </td>
+                {/* Mobile card list */}
+                <div className="space-y-3 md:hidden">
+                    {leads.data.map((lead) => (
+                        <div
+                            key={lead.id}
+                            className="bg-[#1e293b] border border-slate-700 rounded-xl p-4 cursor-pointer hover:border-slate-600 transition-colors"
+                            onClick={() => router.visit(`/system/leads/${lead.id}`)}
+                        >
+                            <div className="flex items-start justify-between gap-2 mb-2">
+                                <div className="text-white font-medium text-sm">{lead.business_name}</div>
+                                <span className={`px-2 py-0.5 rounded text-xs font-medium capitalize shrink-0 ${STATUS_COLORS[lead.status] ?? 'bg-slate-700 text-slate-300'}`}>
+                                    {lead.status.replace('_', ' ')}
+                                </span>
+                            </div>
+                            <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-400">
+                                <span>{lead.trade_type}</span>
+                                <span>{lead.city}</span>
+                                <span>{lead.demo_views} views</span>
+                                {lead.tier && (
+                                    <span className={`capitalize font-medium ${TIER_COLORS[lead.tier]}`}>{lead.tier}</span>
+                                )}
+                            </div>
+                        </div>
+                    ))}
+                    {leads.data.length === 0 && (
+                        <div className="px-4 py-8 text-center text-slate-500 text-sm">No leads found.</div>
+                    )}
+                </div>
+
+                {/* Desktop table */}
+                <div className="hidden md:block bg-[#1e293b] border border-slate-700 rounded-2xl overflow-hidden">
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-sm">
+                            <thead>
+                                <tr className="border-b border-slate-700">
+                                    <th className="text-left px-4 py-3 text-slate-400 font-medium">Business</th>
+                                    <th className="text-left px-4 py-3 text-slate-400 font-medium">Trade</th>
+                                    <th className="text-left px-4 py-3 text-slate-400 font-medium hidden lg:table-cell">Category</th>
+                                    <th className="text-left px-4 py-3 text-slate-400 font-medium">City</th>
+                                    <th className="text-left px-4 py-3 text-slate-400 font-medium">Status</th>
+                                    <th className="text-right px-4 py-3 text-slate-400 font-medium hidden lg:table-cell">Views</th>
+                                    <th className="text-left px-4 py-3 text-slate-400 font-medium hidden lg:table-cell">Tier</th>
+                                    <th className="text-left px-4 py-3 text-slate-400 font-medium">Actions</th>
                                 </tr>
-                            ))}
-                            {leads.data.length === 0 && (
-                                <tr>
-                                    <td colSpan={8} className="px-4 py-8 text-center text-slate-500">No leads found.</td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {leads.data.map((lead) => (
+                                    <tr
+                                        key={lead.id}
+                                        className="border-b border-slate-800 hover:bg-slate-800/40 transition-colors cursor-pointer"
+                                        onClick={() => router.visit(`/system/leads/${lead.id}`)}
+                                    >
+                                        <td className="px-4 py-3 text-white font-medium">{lead.business_name}</td>
+                                        <td className="px-4 py-3 text-slate-400">{lead.trade_type}</td>
+                                        <td className="px-4 py-3 hidden lg:table-cell">
+                                            <span className="capitalize text-slate-400">{lead.category}</span>
+                                        </td>
+                                        <td className="px-4 py-3 text-slate-400">{lead.city}</td>
+                                        <td className="px-4 py-3">
+                                            <span className={`px-2 py-0.5 rounded text-xs font-medium capitalize ${STATUS_COLORS[lead.status] ?? 'bg-slate-700 text-slate-300'}`}>
+                                                {lead.status.replace('_', ' ')}
+                                            </span>
+                                        </td>
+                                        <td className="px-4 py-3 text-right text-slate-300 hidden lg:table-cell">{lead.demo_views}</td>
+                                        <td className="px-4 py-3 hidden lg:table-cell">
+                                            {lead.tier ? (
+                                                <span className={`capitalize font-medium text-xs ${TIER_COLORS[lead.tier]}`}>{lead.tier}</span>
+                                            ) : (
+                                                <span className="text-slate-600">—</span>
+                                            )}
+                                        </td>
+                                        <td className="px-4 py-3" onClick={(e) => e.stopPropagation()}>
+                                            <div className="flex gap-2">
+                                                <Link
+                                                    href={`/system/leads/${lead.id}`}
+                                                    className="text-[#C9A96E] hover:underline text-xs"
+                                                >
+                                                    View
+                                                </Link>
+                                                <a
+                                                    href={`/demo/${lead.demo_code}`}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="text-slate-400 hover:text-white text-xs"
+                                                >
+                                                    Demo
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                                {leads.data.length === 0 && (
+                                    <tr>
+                                        <td colSpan={8} className="px-4 py-8 text-center text-slate-500">No leads found.</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 {/* Pagination */}

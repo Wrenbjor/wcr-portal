@@ -7,9 +7,10 @@ export default function Editor({ lead, html: initialHtml }) {
     const [saving, setSaving] = useState(false);
     const [saved, setSaved] = useState(false);
     const [error, setError] = useState(null);
+    const [activeTab, setActiveTab] = useState('code');
     const iframeRef = useRef(null);
 
-    // Update preview whenever html changes
+    // Update preview whenever html changes or tab switches to preview
     useEffect(() => {
         const iframe = iframeRef.current;
         if (!iframe) return;
@@ -19,7 +20,7 @@ export default function Editor({ lead, html: initialHtml }) {
             doc.write(html);
             doc.close();
         }
-    }, [html]);
+    }, [html, activeTab]);
 
     async function save() {
         setSaving(true);
@@ -53,7 +54,7 @@ export default function Editor({ lead, html: initialHtml }) {
             <Head title={`Edit ${lead.business_name} — WCR Studios`} />
             <AdminLayout title={`Edit: ${lead.business_name}`}>
                 {/* Toolbar */}
-                <div className="flex items-center gap-3 mb-4">
+                <div className="flex flex-wrap items-center gap-3 mb-4">
                     <button
                         onClick={() => router.visit(`/system/leads/${lead.id}`)}
                         className="text-slate-400 hover:text-white text-sm"
@@ -73,10 +74,32 @@ export default function Editor({ lead, html: initialHtml }) {
                     </div>
                 </div>
 
-                {/* Split editor */}
-                <div className="flex gap-4 h-[calc(100vh-180px)]">
+                {/* Mobile tab switcher */}
+                <div className="flex md:hidden gap-1 mb-3 bg-[#1e293b] rounded-lg p-1">
+                    <button
+                        onClick={() => setActiveTab('code')}
+                        className={`flex-1 py-2 text-sm font-medium rounded-md transition-colors ${
+                            activeTab === 'code' ? 'bg-[#0f172a] text-white' : 'text-slate-400'
+                        }`}
+                    >
+                        Code
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('preview')}
+                        className={`flex-1 py-2 text-sm font-medium rounded-md transition-colors ${
+                            activeTab === 'preview' ? 'bg-[#0f172a] text-white' : 'text-slate-400'
+                        }`}
+                    >
+                        Preview
+                    </button>
+                </div>
+
+                {/* Split editor — side-by-side on desktop, tabbed on mobile */}
+                <div className="flex gap-4 h-[calc(100vh-230px)] md:h-[calc(100vh-180px)]">
                     {/* Code editor */}
-                    <div className="flex-1 flex flex-col bg-[#1e293b] border border-slate-700 rounded-2xl overflow-hidden">
+                    <div className={`flex-1 flex-col bg-[#1e293b] border border-slate-700 rounded-2xl overflow-hidden ${
+                        activeTab === 'code' ? 'flex' : 'hidden md:flex'
+                    }`}>
                         <div className="px-4 py-2 border-b border-slate-700 text-slate-400 text-xs font-medium flex items-center justify-between">
                             <span>HTML Editor</span>
                             <span className="text-slate-600">{html.length.toLocaleString()} chars</span>
@@ -90,7 +113,9 @@ export default function Editor({ lead, html: initialHtml }) {
                     </div>
 
                     {/* Live preview */}
-                    <div className="flex-1 flex flex-col bg-[#1e293b] border border-slate-700 rounded-2xl overflow-hidden">
+                    <div className={`flex-1 flex-col bg-[#1e293b] border border-slate-700 rounded-2xl overflow-hidden ${
+                        activeTab === 'preview' ? 'flex' : 'hidden md:flex'
+                    }`}>
                         <div className="px-4 py-2 border-b border-slate-700 text-slate-400 text-xs font-medium">
                             Live Preview
                         </div>

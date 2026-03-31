@@ -97,14 +97,16 @@ export default function Show({ lead }) {
                 </div>
 
                 {/* Header row */}
-                <div className="flex flex-wrap items-center gap-3 mb-6">
-                    <span className={`px-3 py-1 rounded-full text-sm font-medium capitalize ${STATUS_COLORS[lead.status]}`}>
-                        {lead.status.replace('_', ' ')}
-                    </span>
-                    <span className="text-slate-500 text-sm">Demo code: <code className="text-[#C9A96E] font-mono">{lead.demo_code}</code></span>
-                    <span className="text-slate-500 text-sm">{lead.demo_views} views</span>
+                <div className="mb-6">
+                    <div className="flex flex-wrap items-center gap-3 mb-3">
+                        <span className={`px-3 py-1 rounded-full text-sm font-medium capitalize ${STATUS_COLORS[lead.status]}`}>
+                            {lead.status.replace('_', ' ')}
+                        </span>
+                        <span className="text-slate-500 text-sm">Demo code: <code className="text-[#C9A96E] font-mono">{lead.demo_code}</code></span>
+                        <span className="text-slate-500 text-sm">{lead.demo_views} views</span>
+                    </div>
 
-                    <div className="ml-auto flex gap-2 flex-wrap">
+                    <div className="flex gap-2 flex-wrap">
                         <button onClick={copyDemoLink} className="bg-[#1e293b] border border-slate-700 text-slate-300 px-3 py-1.5 rounded-lg text-sm hover:border-slate-500 hover:text-white transition-colors">
                             {copied ? '✓ Copied!' : '🔗 Copy Demo Link'}
                         </button>
@@ -145,7 +147,7 @@ export default function Show({ lead }) {
                     <div className="lg:col-span-2">
                         <form onSubmit={save} className="bg-[#1e293b] border border-slate-700 rounded-2xl p-6 space-y-4">
                             <h2 className="font-bold text-white mb-2">Lead Details</h2>
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <Field label="Business Name">
                                     <input className={inputCls} value={data.business_name} onChange={e => setData('business_name', e.target.value)} />
                                 </Field>

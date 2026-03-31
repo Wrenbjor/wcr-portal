@@ -3,9 +3,9 @@ import AdminLayout from '@/Layouts/AdminLayout';
 
 function KpiCard({ label, value, sub, accent }) {
     return (
-        <div className="bg-[#1e293b] border border-slate-700 rounded-2xl p-6">
-            <div className="text-slate-400 text-sm mb-1">{label}</div>
-            <div className={`text-3xl font-bold ${accent ? 'text-[#C9A96E]' : 'text-white'}`}>{value}</div>
+        <div className="bg-[#1e293b] border border-slate-700 rounded-2xl p-4 sm:p-6">
+            <div className="text-slate-400 text-xs sm:text-sm mb-1">{label}</div>
+            <div className={`text-2xl sm:text-3xl font-bold ${accent ? 'text-[#C9A96E]' : 'text-white'}`}>{value}</div>
             {sub && <div className="text-slate-500 text-xs mt-1">{sub}</div>}
         </div>
     );
@@ -39,7 +39,7 @@ export default function Dashboard({
             <Head title="Dashboard — WCR Studios" />
             <AdminLayout title="Dashboard">
                 {/* KPI Row */}
-                <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
                     <KpiCard label="Total Leads" value={totalLeads} />
                     <KpiCard label="Demos Viewed" value={demosViewed} sub={`${totalLeads > 0 ? Math.round((demosViewed/totalLeads)*100) : 0}% view rate`} />
                     <KpiCard label="Conversion Rate" value={`${conversion}%`} sub={`${sold} sold`} />

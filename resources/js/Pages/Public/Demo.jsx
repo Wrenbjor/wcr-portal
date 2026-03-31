@@ -120,12 +120,14 @@ export default function Demo({ lead, error }) {
     }
 
     // Demo viewer with iframe + shelf
+    // On mobile: shelf is a bottom sheet overlay
+    // On desktop: shelf is a right-side panel
     return (
         <>
             <Head title={`${lead.business_name} — WCR Studios Demo`} />
-            <div className="h-screen w-screen flex overflow-hidden bg-[#0f172a]">
+            <div className="h-screen w-screen flex flex-col md:flex-row overflow-hidden bg-[#0f172a]">
                 {/* Iframe */}
-                <div className="flex-1 relative overflow-hidden" style={{ marginRight: shelfOpen ? '380px' : '0', transition: 'margin-right 0.3s ease' }}>
+                <div className="flex-1 relative overflow-hidden">
                     <iframe
                         src={lead.demo_url}
                         className="w-full h-full border-0"
@@ -133,22 +135,51 @@ export default function Demo({ lead, error }) {
                     />
                 </div>
 
-                {/* Shelf toggle handle */}
+                {/* Mobile: bottom toggle bar (always visible when shelf closed) */}
                 <button
                     onClick={() => setShelfOpen(!shelfOpen)}
-                    className="fixed right-0 top-1/2 -translate-y-1/2 z-50 bg-[#C9A96E] text-[#0f172a] font-bold px-2 py-6 rounded-l-lg shadow-xl hover:bg-[#b8934f] transition-colors"
+                    className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#C9A96E] text-[#0f172a] font-bold py-3 text-center shadow-xl"
+                    aria-label={shelfOpen ? 'Close pricing' : 'View pricing'}
+                >
+                    {shelfOpen ? '↓ Close' : '↑ View Pricing Plans'}
+                </button>
+
+                {/* Desktop: side toggle handle */}
+                <button
+                    onClick={() => setShelfOpen(!shelfOpen)}
+                    className="hidden md:block fixed right-0 top-1/2 -translate-y-1/2 z-50 bg-[#C9A96E] text-[#0f172a] font-bold px-2 py-6 rounded-l-lg shadow-xl hover:bg-[#b8934f] transition-colors"
                     style={{ right: shelfOpen ? '380px' : '0', transition: 'right 0.3s ease' }}
                     aria-label={shelfOpen ? 'Close shelf' : 'Open shelf'}
                 >
                     {shelfOpen ? '›' : '‹'}
                 </button>
 
-                {/* Shelf */}
+                {/* Mobile overlay */}
+                {shelfOpen && (
+                    <div
+                        className="fixed inset-0 bg-black/60 z-40 md:hidden"
+                        onClick={() => setShelfOpen(false)}
+                    />
+                )}
+
+                {/* Shelf — mobile: bottom sheet, desktop: right panel */}
                 <div
-                    className="fixed top-0 right-0 h-full bg-[#0f172a] border-l border-slate-700 overflow-y-auto shadow-2xl"
-                    style={{ width: '380px', transform: shelfOpen ? 'translateX(0)' : 'translateX(100%)', transition: 'transform 0.3s ease' }}
+                    className={`
+                        fixed z-50 bg-[#0f172a] border-slate-700 overflow-y-auto shadow-2xl transition-transform duration-300 ease-in-out
+                        inset-x-0 bottom-0 max-h-[80vh] rounded-t-2xl border-t
+                        md:inset-x-auto md:top-0 md:right-0 md:h-full md:w-[380px] md:max-h-none md:rounded-t-none md:border-t-0 md:border-l
+                        ${shelfOpen
+                            ? 'translate-y-0 md:translate-y-0 md:translate-x-0'
+                            : 'translate-y-full md:translate-y-0 md:translate-x-full'
+                        }
+                    `}
                 >
-                    <div className="p-6">
+                    <div className="p-6 pb-20 md:pb-6">
+                        {/* Mobile drag indicator */}
+                        <div className="md:hidden flex justify-center mb-4">
+                            <div className="w-10 h-1 rounded-full bg-slate-600" />
+                        </div>
+
                         {/* Header */}
                         <div className="mb-6">
                             <div className="flex items-center gap-2 mb-1">
