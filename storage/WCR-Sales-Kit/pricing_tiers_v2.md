@@ -3,53 +3,81 @@
 **Multi-Tenant Hosting Business | Local Business Websites**
 **Last updated: March 2026**
 
+> **Frameworks applied:** Hormozi Ascension Model, LTV maximization, unit economics, retention systems.
+> **Core principle:** Revenue is vanity, profit is sanity. Optimize for LTV, not acquisition volume.
+> **Pricing rule:** Never discount the monthly. The monthly is where LTV lives.
+
 ---
 
 ## Overview
 
-WCR Studios offers three tiers of website + hosting packages for local businesses. All sites are built on our proven templates (towing, locksmith, law, restaurant, veterinary) and hosted on our shared infrastructure. Clients get a professional web presence; we get predictable recurring revenue with near-zero marginal cost per site.
+WCR Studios runs a three-tier website + hosting business for local service companies. All sites are built on proven templates and hosted on shared infrastructure. The business model is designed around the Hormozi Ascension Model — clients enter at the level they need today and naturally upgrade as their business grows.
+
+**The math that matters:**
+
+```
+LTV = Average Revenue Per Client × Average Lifespan × Gross Margin %
+```
+
+Every decision below optimizes one of those three variables.
 
 ---
 
-## Tier 1: Starter — $499 upfront + $49/mo
+## The Ascension Model
 
-**Target client:** Business owner who just needs a professional online presence and isn't yet thinking about leads or marketing.
+Clients don't need the top tier on day one. The value of each tier is earned through results at the previous tier. The product ladder:
+
+```
+Starter ($50/mo)  →  Growth ($79/mo)  →  Pro ($149/mo)
+   "Get found"        "Get leads"         "Get booked"
+```
+
+Each level creates natural demand for the next. The client who sees traffic data from Growth starts asking about CRM integration — they sell themselves into Pro.
+
+---
+
+## Tier 1: Starter — $499 upfront + $50/mo
+
+**Position in the ladder:** Entry point. Solve one problem completely: make them findable.
 
 ### What They Get
 
 | Feature | Details |
 |---------|---------|
-| Professional single-page website | Built from our proven templates — mobile-first, fast-loading |
-| Custom domain setup | Client buys the domain; we handle DNS configuration and pointing |
-| SSL certificate | Let's Encrypt, auto-renewing — site is always HTTPS |
-| Mobile-responsive design | Looks great on phones, tablets, and desktop |
-| Google Maps integration | Embedded map with their business location |
+| Professional single-page website | Built from proven templates — mobile-first, fast-loading |
+| Custom domain setup | Client buys the domain; we handle DNS and pointing |
+| SSL certificate | Let's Encrypt, auto-renewing — always HTTPS |
+| Mobile-responsive design | Looks great on phones, tablets, desktop |
+| Google Maps integration | Embedded map with business location |
 | Basic SEO | Meta title/description, schema.org LocalBusiness markup, Open Graph tags |
 | Monthly uptime monitoring | UptimeRobot — we know before they do if something goes down |
-| "Website by WCR Studios" footer credit | Our brand attribution on every Starter site |
+| "Website by WCR Studios" footer | Brand attribution (removal is a Growth upgrade trigger) |
 
-### What It Costs Us
+### Unit Economics
 
-| Cost Item | Amount |
-|-----------|--------|
-| Shared VPS hosting (per site, ~50 sites on $25/mo server) | ~$0.50/mo |
-| Setup time | ~5 min (Nginx vhost + DNS verify) |
-| SSL setup | Automated via certbot |
-| Ongoing maintenance | Near zero — static HTML sites |
-| **Total cost** | **~$1/mo** |
+| Metric | Value |
+|--------|-------|
+| Setup cost to us | ~5 min (Nginx vhost + DNS verify) |
+| Monthly cost per site | ~$0.50 (shared VPS, ~50 sites per $25/mo server) |
+| Monthly revenue | $50 |
+| **Gross margin** | **~98%** |
+| LTV at 12-month lifespan | $499 + ($50 × 12) = **$1,099** |
+| LTV at 24-month lifespan | $499 + ($50 × 24) = **$1,699** |
 
-**Gross margin: ~98%**
+### Upsell Triggers (Watch For)
 
-### Who This Is For
-- New businesses just getting online
-- Businesses with an outdated or no website
-- Anyone who wants to "just have a website" — not running ads, not tracking leads
+- "Is anyone visiting my site?"
+- "Can you add a contact form?"
+- "How do I know if this is even working?"
+- "Can you take your name off the bottom?"
+
+**When you hear these → pitch Growth.**
 
 ---
 
 ## Tier 2: Growth — $999 upfront + $79/mo
 
-**Target client:** Business owner who's getting some traffic and wants to capture leads, remove our branding, and see how their site is performing.
+**Position in the ladder:** They're getting traffic but don't know it. Now they want leads and proof it's working.
 
 ### What They Get
 
@@ -58,34 +86,40 @@ WCR Studios offers three tiers of website + hosting packages for local businesse
 | Feature | Details |
 |---------|---------|
 | Email/lead capture form | Contact form that emails the client AND stores submissions in our DB |
-| Google Business Profile setup | We walk them through claiming/optimizing their GBP listing |
-| Monthly SEO performance report | Auto-generated: rankings, traffic, impressions from Google Search Console |
-| Google Analytics setup | GA4 property creation + tag installed on their site |
-| 1 content update/month | Text changes, photo swaps, hours updates — client submits, we deploy |
-| White-label | "Website by WCR Studios" footer credit removed |
+| Google Business Profile setup | Walk them through claiming/optimizing their GBP listing |
+| Monthly SEO performance report | Auto-generated from Google Search Console |
+| Google Analytics setup | GA4 property + tag installed |
+| 1 content update/month | Text changes, photo swaps, hours — client submits, we deploy |
+| White-label | Footer credit removed |
 
-### What It Costs Us
+### Unit Economics
 
-| Cost Item | Amount |
-|-----------|--------|
-| Hosting (same as Starter) | ~$0.50/mo |
-| Form handler (Formspree Pro or shared Laravel endpoint) | ~$0–$2/mo amortized |
-| Content update labor | ~15 min/mo per client |
-| Report generation | Automated — near zero |
-| **Total cost** | **~$3–4/mo** |
+| Metric | Value |
+|--------|-------|
+| Monthly cost per site | ~$3-4 (hosting + form handler + 15 min content labor) |
+| Monthly revenue | $79 |
+| **Gross margin** | **~95%** |
+| LTV at 12-month lifespan | $999 + ($79 × 12) = **$1,947** |
+| LTV at 24-month lifespan | $999 + ($79 × 24) = **$2,895** |
 
-**Gross margin: ~95%**
+### Upgrade Fee Logic
 
-### Who This Is For
-- Businesses running any kind of marketing (Google Ads, flyers, Yelp)
-- Anyone who asked "how do I know if my website is working?"
-- Clients who referred us to someone else and want their name off our footer
+$999 upfront − $499 already paid at Starter = **$500 upgrade fee.** Keeps the math clean and rewards early adoption.
+
+### Upsell Triggers for Pro
+
+- "I'm using Jobber/ServiceTitan — can the form go straight in there?"
+- "I keep forgetting to call leads back."
+- "I'm running Google Ads — how do I track what's working?"
+- "I want a dedicated phone number for website traffic."
+
+**When you hear these → pitch Pro.**
 
 ---
 
 ## Tier 3: Pro — $1,999 upfront + $149/mo
 
-**Target client:** Business owner who's serious about growth — using a CRM, running ads, wants every lead automatically captured and followed up.
+**Position in the ladder:** They're serious about growth. They have a CRM. Leads are slipping through the cracks. They want automation.
 
 ### What They Get
 
@@ -93,31 +127,27 @@ WCR Studios offers three tiers of website + hosting packages for local businesse
 
 | Feature | Details |
 |---------|---------|
-| CRM integration | HubSpot, Salesforce, Jobber, ServiceTitan, Housecall Pro, or similar — form leads go directly into their CRM as new contacts |
-| Lead routing | Form submissions trigger real-time CRM record creation via Zapier or direct API |
-| Automated email follow-up | When a lead comes in: auto-send a branded thank-you email + "Can we schedule a time?" prompt |
-| Call tracking number | CallRail or similar — dedicated number per client, records calls, ties back to website traffic ($45/mo pass-through billed to client) |
-| Monthly strategy call | 15-min call to review lead quality, site performance, and upcoming changes |
-| Priority support | Same-day response (vs. 48 hr for lower tiers) |
-| Quarterly site refresh | Design tweaks, new photos, seasonal updates — proactive, not just reactive |
+| CRM integration | HubSpot, Jobber, ServiceTitan, Housecall Pro — form leads create records automatically |
+| Lead routing | Form → Zapier/API → CRM as new contact in real time |
+| Automated email follow-up | Lead comes in → branded thank-you email + scheduling prompt fires automatically |
+| Call tracking number | CallRail or similar — dedicated number, records calls, ties to website traffic ($45/mo pass-through billed to client) |
+| Monthly strategy call | 15 min — review lead quality, site performance, plan next steps |
+| Priority support | Same-day response |
+| Quarterly site refresh | Design tweaks, new photos, seasonal updates — proactive |
 
-### What It Costs Us
+### Unit Economics
 
-| Cost Item | Amount |
-|-----------|--------|
-| Hosting | ~$0.50/mo |
-| CallRail / call tracking | ~$45/mo (pass-through — billed to client, not our cost) |
-| Strategy call labor | ~30 min/mo |
-| Quarterly refresh labor | ~1 hr/quarter (~20 min/mo amortized) |
-| CRM integration setup (one-time, ~2 hrs) | Amortizes over the life of the client |
-| **Total cost** | **~$20–25/mo (ex call tracking)** |
+| Metric | Value |
+|--------|-------|
+| Monthly cost per site | ~$20-25 (ex. call tracking pass-through) |
+| Monthly revenue | $149 |
+| **Gross margin** | **~85%** |
+| LTV at 12-month lifespan | $1,999 + ($149 × 12) = **$3,787** |
+| LTV at 24-month lifespan | $1,999 + ($149 × 24) = **$5,575** |
 
-**Gross margin: ~85%**
+### Upgrade Fee Logic
 
-### Who This Is For
-- Established businesses actively managing a CRM
-- Service businesses running Google LSA or paid ads
-- Anyone who's lost leads because they didn't follow up fast enough
+$1,999 − $999 already paid at Growth = **$1,000 upgrade fee.**
 
 ---
 
@@ -125,91 +155,80 @@ WCR Studios offers three tiers of website + hosting packages for local businesse
 
 ### Monthly Recurring Revenue (MRR)
 
-| Clients | All Starter ($49) | All Growth ($79) | All Pro ($149) | Mixed (60/30/10) |
+| Clients | All Starter ($50) | All Growth ($79) | All Pro ($149) | Mixed (60/30/10) |
 |---------|-------------------|------------------|----------------|------------------|
-| 10      | $490              | $790             | $1,490         | $659             |
-| 25      | $1,225            | $1,975           | $3,725         | $1,648           |
-| 50      | $2,450            | $3,950           | $7,450         | $3,295           |
-| 100     | $4,900            | $7,900           | $14,900        | $6,590           |
-| 150     | $7,350            | $11,850          | $22,350        | $9,885           |
+| 10 | $500 | $790 | $1,490 | $667 |
+| 25 | $1,250 | $1,975 | $3,725 | $1,668 |
+| 50 | $2,500 | $3,950 | $7,450 | $3,335 |
+| 100 | $5,000 | $7,900 | $14,900 | $6,670 |
+| 150 | $7,500 | $11,850 | $22,350 | $10,005 |
 
 > **Mixed** = 60% Starter / 30% Growth / 10% Pro
-> Mixed MRR = (clients × 0.60 × $49) + (clients × 0.30 × $79) + (clients × 0.10 × $149)
 
-### Upfront Revenue (One-Time Fees)
+### Combined 12-Month Revenue (MRR × 12 + Upfront), Mixed Distribution
 
-| Clients | All Starter ($499) | All Growth ($999) | All Pro ($1,999) | Mixed (60/30/10) |
-|---------|-------------------|-------------------|------------------|------------------|
-| 10      | $4,990            | $9,990            | $19,990          | $9,490           |
-| 25      | $12,475           | $24,975           | $49,975          | $23,725          |
-| 50      | $24,950           | $49,950           | $99,950          | $47,450          |
-| 100     | $49,900           | $99,900           | $199,900         | $94,900          |
-| 150     | $74,850           | $149,850          | $299,850         | $142,350         |
-
-> **Mixed upfront** = (clients × 0.60 × $499) + (clients × 0.30 × $999) + (clients × 0.10 × $1,999)
-
-### Combined 12-Month Revenue (MRR × 12 + Upfront), Mixed Tier Distribution
-
-| Clients | Upfront | Annual MRR | Total Year 1 |
-|---------|---------|------------|--------------|
-| 10      | $9,490  | $7,908     | $17,398      |
-| 25      | $23,725 | $19,776    | $43,501      |
-| 50      | $47,450 | $39,540    | $86,990      |
-| 100     | $94,900 | $79,080    | $173,980     |
-| 150     | $142,350| $118,620   | $260,970     |
+| Clients | Upfront | Annual MRR | Total Year 1 | Blended LTV/Client |
+|---------|---------|------------|--------------|---------------------|
+| 10 | $9,490 | $8,004 | $17,494 | $1,749 |
+| 25 | $23,725 | $20,016 | $43,741 | $1,750 |
+| 50 | $47,450 | $40,020 | $87,470 | $1,749 |
+| 100 | $94,900 | $80,040 | $174,940 | $1,749 |
+| 150 | $142,350 | $120,060 | $262,410 | $1,749 |
 
 ---
 
-## Natural Upsell Path
+## Key Metrics to Track Monthly
 
-Clients rarely need the top tier on day one. The value of Pro has to be earned — here's how a typical client progresses:
-
-### Month 1 — Starter ($499 upfront + $49/mo)
-Client is new or migrating from a bad DIY site. They just need something professional. We deliver in 48 hours. They see it, love it, share it.
-
-**Trigger for upsell:** They start asking "is anyone visiting my site?" or "can you add a contact form?"
-
----
-
-### Month 3 — Upgrade to Growth ($500 upgrade fee + $79/mo)
-They're getting traffic but don't know it. We show them the Google Search Console data — impressions, clicks. They want the contact form. We upsell.
-
-**Upgrade fee logic:** $999 upfront − $499 already paid = $500. Keeps the math clean.
-
-**What closes the upsell:**
-- "I'm running a Google Ad and I have no idea if anyone's calling."
-- "Can you add a contact form?"
-- "How do I know if this is even working?"
-
-**Trigger for Pro upsell:** They mention a CRM, or they're frustrated that leads aren't getting followed up fast enough.
+| Metric | Formula | Target |
+|--------|---------|--------|
+| **LTV:CAC** | Lifetime Value / Cost to Acquire | >3:1 |
+| **Gross Margin (blended)** | Weighted average across tiers | >90% |
+| **Monthly Churn** | Clients lost / Total clients | <5% |
+| **Revenue Per Client** | Total MRR / # clients | Increasing (tier mix shifts up) |
+| **Payback Period** | CAC / Monthly revenue per client | <90 days |
+| **Net Revenue Retention** | Do existing clients spend MORE over time? | >100% (upsells) |
+| **Upgrade Rate** | Clients who move up a tier / Total clients at that tier | Track monthly |
 
 ---
 
-### Month 6 — Upgrade to Pro ($1,000 upgrade fee + $149/mo)
-They've been getting leads through the form. Now they want them in Jobber or HubSpot automatically. They're busy and leads are slipping through the cracks.
+## Retention System
 
-**Upgrade fee logic:** $1,999 − $999 already paid = $1,000.
+Churn kills MRR businesses. Diagnose and address each type:
 
-**What closes the upsell:**
-- "I'm using Jobber/ServiceTitan — can the form go straight in there?"
-- "I keep forgetting to call people back."
-- "I want a dedicated phone number for my website traffic."
+| Churn Type | Signal | Response |
+|------------|--------|----------|
+| **Happy churn** | They got results, think they're done | Show them the next tier. "Your site is working — here's how to 3x it." |
+| **Unhappy churn** | Site isn't producing results | Audit their site, fix SEO, add content. Proactive call before they cancel. |
+| **Payment churn** | Card declines | Dunning email sequence (Day 1, 3, 7). Text on Day 3. Call on Day 7. |
+| **Life churn** | Business closed, pivoted | Offer pause (hold site for 60 days at $0). Better than losing them. |
+
+**Onboarding is retention.** The first 48 hours determine whether they stay. Get their site live fast, send them their first traffic report within 7 days, and make them feel like they made a great decision.
 
 ---
 
-## Pricing FAQ (Internal)
+## Pricing Rules (Internal)
 
-**Q: Can we negotiate the upfront fee?**
-A: Yes, but never discount the monthly. The monthly is where we make money long-term. Offer a payment plan on the upfront if needed (e.g., $249 now + $250 at 30 days).
+1. **Never discount the monthly.** Monthly is where LTV lives. The $50/mo Starter monthly covers hosting, security, uptime monitoring, and basic maintenance. Offer payment plans on upfront if needed ($249 now + $250 at 30 days).
+2. **Never compete on price.** If someone says "I can get a website for $200 on Fiverr," say: "You can. And you'll get exactly what you pay for." Add bonuses instead of cutting price.
+3. **Raise prices as demand increases.** When you have 30+ clients and a waitlist, bump Starter to $599. The Virtuous Cycle: higher price → better service → better results → more referrals → more demand.
+4. **Credit upfront fees on upgrades.** This makes the ascension math clean and rewards clients who started early.
+5. **Annual pricing (future):** Offer 2 months free for annual prepay once MRR is stable. Example: Starter $500/yr instead of $600/yr.
 
-**Q: What if they cancel?**
-A: 30-day notice required. We keep the upfront fee — it covers our build labor. If they leave, we take the site down. They don't own the infrastructure; they own the domain.
+---
 
-**Q: Do we offer annual pricing?**
-A: Not yet. Consider offering 2 months free for annual prepay (e.g., $490/yr instead of $588/yr for Starter) once MRR is stable.
+## The 3 Growth Levers Applied to WCR
 
-**Q: What about niches we don't have templates for?**
-A: Quote custom at $2,499 upfront + Growth or Pro monthly. The template work takes ~4 hours; charge accordingly.
+```
+Revenue = Clients × Revenue Per Client × Lifespan
+```
+
+| Lever | How to Pull It |
+|-------|---------------|
+| **More clients** | Cold outreach (Core Four: warm outreach, content, cold outreach, paid ads). Target: 5-10 new clients/month. |
+| **Higher revenue per client** | Push tier upgrades. Current blended: $66.70/mo. Target: $80+/mo by shifting mix to 40/40/20. |
+| **Longer lifespan** | Retention system above. Target: 24+ month average lifespan. |
+
+**Pull in this order:** Price/upgrades first (costs nothing). Then retention (costs almost nothing). Then new clients (costs the most).
 
 ---
 
