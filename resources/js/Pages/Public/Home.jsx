@@ -99,9 +99,9 @@ export default function Home() {
                     <p className="text-slate-400 text-center mb-12">No hidden fees. No long-term contracts.</p>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {[
-                            { name: 'Starter', setup: 499, monthly: 49, features: ['5-Page Website', 'Mobile Responsive', 'Google My Business', 'Basic SEO'] },
-                            { name: 'Growth', setup: 999, monthly: 79, features: ['10-Page Website', 'Blog & Content', 'Social Media Setup', 'Monthly Updates', 'Review Automation'], highlight: true },
-                            { name: 'Pro', setup: 1999, monthly: 149, features: ['Unlimited Pages', 'AI Voice Agent', 'Full Automation', 'Priority Support', 'Custom Integrations'] },
+                            { name: 'Starter', setup: 499, monthly: 75, features: ['Website Hosting', 'Up to 5 Dedicated Service Pages', 'Google My Business Setup', 'Full SEO / AEO'] },
+                            { name: 'Growth', setup: 999, monthly: 100, features: ['Everything in Starter', 'Google Review Automation', 'Up to 3 Social Media Accounts Connected', 'Monthly Social Content Guidelines Email'], highlight: true },
+                            { name: 'Pro', setup: 1999, monthly: 500, features: ['Everything in Growth', 'Priority Support', 'AI Voice Agent (Vapi)', 'Calendar Integration & Auto Booking', '10 Custom Post Scripts / Month'] },
                         ].map((tier) => (
                             <div
                                 key={tier.name}

@@ -54,9 +54,9 @@ class Lead extends Model
     public function tierPrice(): ?array
     {
         return match($this->tier) {
-            'starter' => ['setup' => 499, 'monthly' => 49],
-            'growth'  => ['setup' => 999, 'monthly' => 79],
-            'pro'     => ['setup' => 1999, 'monthly' => 149],
+            'starter' => ['setup' => 499, 'monthly' => 75],
+            'growth'  => ['setup' => 999, 'monthly' => 100],
+            'pro'     => ['setup' => 1999, 'monthly' => 500],
             default   => null,
         };
     }

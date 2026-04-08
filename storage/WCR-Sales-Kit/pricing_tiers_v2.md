@@ -1,7 +1,7 @@
 # WCR Studios — Pricing Tiers v2
 
 **Multi-Tenant Hosting Business | Local Business Websites**
-**Last updated: March 2026**
+**Last updated: April 2026**
 
 > **Frameworks applied:** Hormozi Ascension Model, LTV maximization, unit economics, retention systems.
 > **Core principle:** Revenue is vanity, profit is sanity. Optimize for LTV, not acquisition volume.
@@ -28,15 +28,15 @@ Every decision below optimizes one of those three variables.
 Clients don't need the top tier on day one. The value of each tier is earned through results at the previous tier. The product ladder:
 
 ```
-Starter ($50/mo)  →  Growth ($79/mo)  →  Pro ($149/mo)
-   "Get found"        "Get leads"         "Get booked"
+Starter ($75/mo)  →  Growth ($100/mo)  →  Pro ($500/mo)
+   "Get found"      "Get reviews & social"   "Get booked"
 ```
 
-Each level creates natural demand for the next. The client who sees traffic data from Growth starts asking about CRM integration — they sell themselves into Pro.
+Each level creates natural demand for the next. The client who starts collecting Google reviews from Growth eventually realizes they're missing calls — they sell themselves into Pro's AI voice agent.
 
 ---
 
-## Tier 1: Starter — $499 upfront + $50/mo
+## Tier 1: Starter — $499 upfront + $75/mo
 
 **Position in the ladder:** Entry point. Solve one problem completely: make them findable.
 
@@ -44,14 +44,12 @@ Each level creates natural demand for the next. The client who sees traffic data
 
 | Feature | Details |
 |---------|---------|
-| Professional single-page website | Built from proven templates — mobile-first, fast-loading |
+| Website hosting | Shared infrastructure, SSL, uptime monitoring — site stays live |
+| Up to 5 dedicated service pages | One page per service, built from proven templates — mobile-first, fast-loading |
+| Google My Business setup | Claim and optimize their GBP listing |
+| Full SEO / AEO | On-page SEO, schema.org LocalBusiness markup, answer-engine optimization for AI search |
 | Custom domain setup | Client buys the domain; we handle DNS and pointing |
-| SSL certificate | Let's Encrypt, auto-renewing — always HTTPS |
 | Mobile-responsive design | Looks great on phones, tablets, desktop |
-| Google Maps integration | Embedded map with business location |
-| Basic SEO | Meta title/description, schema.org LocalBusiness markup, Open Graph tags |
-| Monthly uptime monitoring | UptimeRobot — we know before they do if something goes down |
-| "Website by WCR Studios" footer | Brand attribution (removal is a Growth upgrade trigger) |
 
 ### Unit Economics
 
@@ -59,25 +57,25 @@ Each level creates natural demand for the next. The client who sees traffic data
 |--------|-------|
 | Setup cost to us | ~5 min (Nginx vhost + DNS verify) |
 | Monthly cost per site | ~$0.50 (shared VPS, ~50 sites per $25/mo server) |
-| Monthly revenue | $50 |
+| Monthly revenue | $75 |
 | **Gross margin** | **~98%** |
-| LTV at 12-month lifespan | $499 + ($50 × 12) = **$1,099** |
-| LTV at 24-month lifespan | $499 + ($50 × 24) = **$1,699** |
+| LTV at 12-month lifespan | $499 + ($75 × 12) = **$1,399** |
+| LTV at 24-month lifespan | $499 + ($75 × 24) = **$2,299** |
 
 ### Upsell Triggers (Watch For)
 
-- "Is anyone visiting my site?"
-- "Can you add a contact form?"
-- "How do I know if this is even working?"
-- "Can you take your name off the bottom?"
+- "Are people actually finding my site?"
+- "How do I get more Google reviews?"
+- "I should probably be on Facebook/Instagram, right?"
+- "What should I even post?"
 
 **When you hear these → pitch Growth.**
 
 ---
 
-## Tier 2: Growth — $999 upfront + $79/mo
+## Tier 2: Growth — $999 upfront + $100/mo
 
-**Position in the ladder:** They're getting traffic but don't know it. Now they want leads and proof it's working.
+**Position in the ladder:** They're getting found. Now they need social proof and a presence on the platforms their customers actually use.
 
 ### What They Get
 
@@ -85,22 +83,19 @@ Each level creates natural demand for the next. The client who sees traffic data
 
 | Feature | Details |
 |---------|---------|
-| Email/lead capture form | Contact form that emails the client AND stores submissions in our DB |
-| Google Business Profile setup | Walk them through claiming/optimizing their GBP listing |
-| Monthly SEO performance report | Auto-generated from Google Search Console |
-| Google Analytics setup | GA4 property + tag installed |
-| 1 content update/month | Text changes, photo swaps, hours — client submits, we deploy |
-| White-label | Footer credit removed |
+| Google Review automation | Automated review request flow — text/email customers after a job to capture 5-star reviews |
+| Up to 3 social media accounts | We sign up and connect up to 3 social profiles (Facebook, Instagram, etc.) to the client's brand |
+| Monthly social content guidelines email | Monthly email with content themes, post ideas, and guidelines tailored to their trade |
 
 ### Unit Economics
 
 | Metric | Value |
 |--------|-------|
-| Monthly cost per site | ~$3-4 (hosting + form handler + 15 min content labor) |
-| Monthly revenue | $79 |
-| **Gross margin** | **~95%** |
-| LTV at 12-month lifespan | $999 + ($79 × 12) = **$1,947** |
-| LTV at 24-month lifespan | $999 + ($79 × 24) = **$2,895** |
+| Monthly cost per site | ~$3-5 (hosting + review automation tooling + content email labor) |
+| Monthly revenue | $100 |
+| **Gross margin** | **~96%** |
+| LTV at 12-month lifespan | $999 + ($100 × 12) = **$2,199** |
+| LTV at 24-month lifespan | $999 + ($100 × 24) = **$3,399** |
 
 ### Upgrade Fee Logic
 
@@ -108,18 +103,20 @@ $999 upfront − $499 already paid at Starter = **$500 upgrade fee.** Keeps the 
 
 ### Upsell Triggers for Pro
 
-- "I'm using Jobber/ServiceTitan — can the form go straight in there?"
+- "I'm missing calls when I'm on a job."
 - "I keep forgetting to call leads back."
-- "I'm running Google Ads — how do I track what's working?"
-- "I want a dedicated phone number for website traffic."
+- "I wish appointments just landed straight in my calendar."
+- "Customers are calling after hours and I'm losing them."
+- "I need a receptionist but I can't afford full-time."
+- "The content guidelines are great, but I don't have time to actually write the posts."
 
 **When you hear these → pitch Pro.**
 
 ---
 
-## Tier 3: Pro — $1,999 upfront + $149/mo
+## Tier 3: Pro — $1,999 upfront + $500/mo
 
-**Position in the ladder:** They're serious about growth. They have a CRM. Leads are slipping through the cracks. They want automation.
+**Position in the ladder:** They're serious about growth. They want a 24/7 receptionist, automatic booking, and done-for-you content — not just guidelines.
 
 ### What They Get
 
@@ -127,23 +124,20 @@ $999 upfront − $499 already paid at Starter = **$500 upgrade fee.** Keeps the 
 
 | Feature | Details |
 |---------|---------|
-| CRM integration | HubSpot, Jobber, ServiceTitan, Housecall Pro — form leads create records automatically |
-| Lead routing | Form → Zapier/API → CRM as new contact in real time |
-| Automated email follow-up | Lead comes in → branded thank-you email + scheduling prompt fires automatically |
-| Call tracking number | CallRail or similar — dedicated number, records calls, ties to website traffic ($45/mo pass-through billed to client) |
-| Monthly strategy call | 15 min — review lead quality, site performance, plan next steps |
-| Priority support | Same-day response |
-| Quarterly site refresh | Design tweaks, new photos, seasonal updates — proactive |
+| Priority support | Same-day response (vs. 48 hr for lower tiers) |
+| AI Voice Agent (Vapi) | Vapi-powered voice agent answers calls 24/7, qualifies leads, and books appointments |
+| Calendar integration | Voice agent connects directly to the client's calendar for automatic appointment booking |
+| 10 custom post scripts / month | 10 specific, ready-to-post scripts each month — on top of the social content guidelines from Growth |
 
 ### Unit Economics
 
 | Metric | Value |
 |--------|-------|
-| Monthly cost per site | ~$20-25 (ex. call tracking pass-through) |
-| Monthly revenue | $149 |
-| **Gross margin** | **~85%** |
-| LTV at 12-month lifespan | $1,999 + ($149 × 12) = **$3,787** |
-| LTV at 24-month lifespan | $1,999 + ($149 × 24) = **$5,575** |
+| Monthly cost per site | ~$75-100 (Vapi usage + ~30 min/mo writing post scripts + priority support time) |
+| Monthly revenue | $500 |
+| **Gross margin** | **~83%** |
+| LTV at 12-month lifespan | $1,999 + ($500 × 12) = **$7,999** |
+| LTV at 24-month lifespan | $1,999 + ($500 × 24) = **$13,999** |
 
 ### Upgrade Fee Logic
 
@@ -155,25 +149,28 @@ $1,999 − $999 already paid at Growth = **$1,000 upgrade fee.**
 
 ### Monthly Recurring Revenue (MRR)
 
-| Clients | All Starter ($50) | All Growth ($79) | All Pro ($149) | Mixed (60/30/10) |
-|---------|-------------------|------------------|----------------|------------------|
-| 10 | $500 | $790 | $1,490 | $667 |
-| 25 | $1,250 | $1,975 | $3,725 | $1,668 |
-| 50 | $2,500 | $3,950 | $7,450 | $3,335 |
-| 100 | $5,000 | $7,900 | $14,900 | $6,670 |
-| 150 | $7,500 | $11,850 | $22,350 | $10,005 |
+| Clients | All Starter ($75) | All Growth ($100) | All Pro ($500) | Mixed (60/30/10) |
+|---------|-------------------|-------------------|----------------|------------------|
+| 10 | $750 | $1,000 | $5,000 | $1,250 |
+| 25 | $1,875 | $2,500 | $12,500 | $3,125 |
+| 50 | $3,750 | $5,000 | $25,000 | $6,250 |
+| 100 | $7,500 | $10,000 | $50,000 | $12,500 |
+| 150 | $11,250 | $15,000 | $75,000 | $18,750 |
 
 > **Mixed** = 60% Starter / 30% Growth / 10% Pro
+> Mixed MRR/client = (0.60 × $75) + (0.30 × $100) + (0.10 × $500) = **$125/mo**
 
 ### Combined 12-Month Revenue (MRR × 12 + Upfront), Mixed Distribution
 
+> Mixed upfront/client = (0.60 × $499) + (0.30 × $999) + (0.10 × $1,999) = **$799**
+
 | Clients | Upfront | Annual MRR | Total Year 1 | Blended LTV/Client |
 |---------|---------|------------|--------------|---------------------|
-| 10 | $9,490 | $8,004 | $17,494 | $1,749 |
-| 25 | $23,725 | $20,016 | $43,741 | $1,750 |
-| 50 | $47,450 | $40,020 | $87,470 | $1,749 |
-| 100 | $94,900 | $80,040 | $174,940 | $1,749 |
-| 150 | $142,350 | $120,060 | $262,410 | $1,749 |
+| 10 | $7,990 | $15,000 | $22,990 | $2,299 |
+| 25 | $19,975 | $37,500 | $57,475 | $2,299 |
+| 50 | $39,950 | $75,000 | $114,950 | $2,299 |
+| 100 | $79,900 | $150,000 | $229,900 | $2,299 |
+| 150 | $119,850 | $225,000 | $344,850 | $2,299 |
 
 ---
 
@@ -197,22 +194,22 @@ Churn kills MRR businesses. Diagnose and address each type:
 
 | Churn Type | Signal | Response |
 |------------|--------|----------|
-| **Happy churn** | They got results, think they're done | Show them the next tier. "Your site is working — here's how to 3x it." |
-| **Unhappy churn** | Site isn't producing results | Audit their site, fix SEO, add content. Proactive call before they cancel. |
+| **Happy churn** | They got results, think they're done | Show them the next tier. "Your reviews are flowing — here's how to never miss another call." |
+| **Unhappy churn** | Site/voice agent isn't producing results | Audit setup, fix SEO, retune voice agent prompts. Proactive call before they cancel. |
 | **Payment churn** | Card declines | Dunning email sequence (Day 1, 3, 7). Text on Day 3. Call on Day 7. |
 | **Life churn** | Business closed, pivoted | Offer pause (hold site for 60 days at $0). Better than losing them. |
 
-**Onboarding is retention.** The first 48 hours determine whether they stay. Get their site live fast, send them their first traffic report within 7 days, and make them feel like they made a great decision.
+**Onboarding is retention.** The first 48 hours determine whether they stay. Get their site live fast, send them their first SEO/review report within 7 days, and make them feel like they made a great decision.
 
 ---
 
 ## Pricing Rules (Internal)
 
-1. **Never discount the monthly.** Monthly is where LTV lives. The $50/mo Starter monthly covers hosting, security, uptime monitoring, and basic maintenance. Offer payment plans on upfront if needed ($249 now + $250 at 30 days).
+1. **Never discount the monthly.** Monthly is where LTV lives. The $75/mo Starter monthly covers hosting, security, uptime monitoring, and basic maintenance. Offer payment plans on upfront if needed ($249 now + $250 at 30 days).
 2. **Never compete on price.** If someone says "I can get a website for $200 on Fiverr," say: "You can. And you'll get exactly what you pay for." Add bonuses instead of cutting price.
-3. **Raise prices as demand increases.** When you have 30+ clients and a waitlist, bump Starter to $599. The Virtuous Cycle: higher price → better service → better results → more referrals → more demand.
+3. **Raise prices as demand increases.** When you have 30+ clients and a waitlist, bump Starter to $899. The Virtuous Cycle: higher price → better service → better results → more referrals → more demand.
 4. **Credit upfront fees on upgrades.** This makes the ascension math clean and rewards clients who started early.
-5. **Annual pricing (future):** Offer 2 months free for annual prepay once MRR is stable. Example: Starter $500/yr instead of $600/yr.
+5. **Annual pricing (future):** Offer 2 months free for annual prepay once MRR is stable. Example: Starter $750/yr instead of $900/yr.
 
 ---
 
@@ -225,7 +222,7 @@ Revenue = Clients × Revenue Per Client × Lifespan
 | Lever | How to Pull It |
 |-------|---------------|
 | **More clients** | Cold outreach (Core Four: warm outreach, content, cold outreach, paid ads). Target: 5-10 new clients/month. |
-| **Higher revenue per client** | Push tier upgrades. Current blended: $66.70/mo. Target: $80+/mo by shifting mix to 40/40/20. |
+| **Higher revenue per client** | Push tier upgrades. Current blended: $125/mo. Target: $170+/mo by shifting mix to 40/40/20 (40% Starter / 40% Growth / 20% Pro). |
 | **Longer lifespan** | Retention system above. Target: 24+ month average lifespan. |
 
 **Pull in this order:** Price/upgrades first (costs nothing). Then retention (costs almost nothing). Then new clients (costs the most).
