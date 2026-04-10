@@ -7,8 +7,11 @@ return new class extends Migration
 {
     public function up(): void
     {
-        // Clear existing leads
+        // Clear existing leads (disable FK checks for truncate)
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('activity_log')->truncate();
         DB::table('leads')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         // Insert 1964 trade leads - generated 2026-04-10 16:52:23
         $leads = [
