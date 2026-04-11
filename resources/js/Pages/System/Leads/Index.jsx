@@ -179,6 +179,13 @@ export default function Index({ leads, filters, users }) {
                     >
                         Clear
                     </Link>
+
+                    <a
+                        href="/system/leads/export"
+                        className="bg-[#1e293b] border border-slate-700 text-slate-300 hover:text-white px-4 py-2 rounded-lg text-sm whitespace-nowrap"
+                    >
+                        Export CSV
+                    </a>
                 </div>
 
                 {/* Mobile card list */}

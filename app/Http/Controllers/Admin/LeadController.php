@@ -61,6 +61,65 @@ class LeadController extends Controller
         ]);
     }
 
+    public function export()
+    {
+        $leads = Lead::query()
+            ->with('assignedUser:id,name')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $filename = 'leads-export-' . now()->format('Y-m-d') . '.csv';
+
+        $headers = [
+            'Content-Type'        => 'text/csv',
+            'Content-Disposition' => "attachment; filename=\"{$filename}\"",
+        ];
+
+        $columns = [
+            'ID', 'Business Name', 'Trade Type', 'Category', 'City', 'State',
+            'Phone', 'Email', 'Contact Name',
+            'Status', 'Contact Status', 'Contact Date', 'Contact Notes',
+            'Assigned To',
+            'Tier', 'Demo URL', 'GitHub URL', 'Demo Code', 'Demo Views', 'Last Viewed At',
+            'Created At',
+        ];
+
+        $callback = function () use ($leads, $columns) {
+            $handle = fopen('php://output', 'w');
+            fputcsv($handle, $columns);
+
+            foreach ($leads as $lead) {
+                fputcsv($handle, [
+                    $lead->id,
+                    $lead->business_name,
+                    $lead->trade_type,
+                    $lead->category,
+                    $lead->city,
+                    $lead->state,
+                    $lead->phone,
+                    $lead->email,
+                    $lead->contact_name,
+                    $lead->status,
+                    $lead->contact_status,
+                    $lead->contact_date,
+                    $lead->contact_notes,
+                    $lead->assignedUser?->name,
+                    $lead->tier,
+                    $lead->demo_url,
+                    $lead->github_url,
+                    $lead->demo_code,
+                    $lead->demo_views,
+                    $lead->last_viewed_at,
+                    $lead->created_at,
+                ]);
+            }
+
+            fclose($handle);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
     public function show(Lead $lead)
     {
         $lead->load('activityLogs');

@@ -31,6 +31,7 @@ Route::prefix('system')->name('system.')->group(function () {
 
         Route::get('/leads',            [LeadController::class, 'index'])->name('leads.index');
         Route::post('/leads',           [LeadController::class, 'store'])->name('leads.store');
+        Route::get('/leads/export',     [LeadController::class, 'export'])->name('leads.export');
         Route::get('/leads/{lead}',     [LeadController::class, 'show'])->name('leads.show');
         Route::put('/leads/{lead}',     [LeadController::class, 'update'])->name('leads.update');
         Route::get('/leads/{lead}/editor',       [LeadController::class, 'editor'])->name('leads.editor');
