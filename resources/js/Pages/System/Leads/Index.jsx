@@ -18,17 +18,43 @@ const TIER_COLORS = {
     pro:     'text-purple-300',
 };
 
+function SortIcon({ column, sort, direction }) {
+    if (sort !== column) return <span className="ml-1 text-slate-600">↕</span>;
+    return <span className="ml-1 text-[#C9A96E]">{direction === 'asc' ? '↑' : '↓'}</span>;
+}
+
 export default function Index({ leads, filters }) {
     const [search, setSearch] = useState(filters.search ?? '');
     const [category, setCategory] = useState(filters.category ?? '');
     const [status, setStatus] = useState(filters.status ?? '');
+    const sort = filters.sort ?? 'created_at';
+    const direction = filters.direction ?? 'desc';
 
     function applyFilters(overrides = {}) {
         router.get('/system/leads', {
             search: overrides.search ?? search,
             category: overrides.category ?? category,
             status: overrides.status ?? status,
+            sort: overrides.sort ?? sort,
+            direction: overrides.direction ?? direction,
         }, { preserveState: true, replace: true });
+    }
+
+    function handleSort(column) {
+        const newDirection = sort === column && direction === 'asc' ? 'desc' : 'asc';
+        applyFilters({ sort: column, direction: newDirection });
+    }
+
+    function SortTh({ column, children, className = '' }) {
+        return (
+            <th
+                className={`text-left px-4 py-3 text-slate-400 font-medium cursor-pointer select-none hover:text-slate-200 transition-colors ${sort === column ? 'text-slate-200' : ''} ${className}`}
+                onClick={() => handleSort(column)}
+            >
+                {children}
+                <SortIcon column={column} sort={sort} direction={direction} />
+            </th>
+        );
     }
 
     function handleSearch(e) {
@@ -125,13 +151,18 @@ export default function Index({ leads, filters }) {
                         <table className="w-full text-sm">
                             <thead>
                                 <tr className="border-b border-slate-700">
-                                    <th className="text-left px-4 py-3 text-slate-400 font-medium">Business</th>
-                                    <th className="text-left px-4 py-3 text-slate-400 font-medium">Trade</th>
-                                    <th className="text-left px-4 py-3 text-slate-400 font-medium hidden lg:table-cell">Category</th>
-                                    <th className="text-left px-4 py-3 text-slate-400 font-medium">City</th>
-                                    <th className="text-left px-4 py-3 text-slate-400 font-medium">Status</th>
-                                    <th className="text-right px-4 py-3 text-slate-400 font-medium hidden lg:table-cell">Views</th>
-                                    <th className="text-left px-4 py-3 text-slate-400 font-medium hidden lg:table-cell">Tier</th>
+                                    <SortTh column="business_name">Business</SortTh>
+                                    <SortTh column="trade_type">Trade</SortTh>
+                                    <SortTh column="category" className="hidden lg:table-cell">Category</SortTh>
+                                    <SortTh column="city">City</SortTh>
+                                    <SortTh column="status">Status</SortTh>
+                                    <th
+                                        className={`text-right px-4 py-3 text-slate-400 font-medium cursor-pointer select-none hover:text-slate-200 transition-colors hidden lg:table-cell ${sort === 'demo_views' ? 'text-slate-200' : ''}`}
+                                        onClick={() => handleSort('demo_views')}
+                                    >
+                                        Views<SortIcon column="demo_views" sort={sort} direction={direction} />
+                                    </th>
+                                    <SortTh column="tier" className="hidden lg:table-cell">Tier</SortTh>
                                     <th className="text-left px-4 py-3 text-slate-400 font-medium">Actions</th>
                                 </tr>
                             </thead>

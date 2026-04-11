@@ -37,11 +37,15 @@ class LeadController extends Controller
             $query->where('trade_type', 'like', "%$trade%");
         }
 
-        $leads = $query->orderByDesc('created_at')->paginate(50)->withQueryString();
+        $sortable  = ['business_name', 'trade_type', 'category', 'city', 'state', 'status', 'demo_views', 'tier', 'created_at'];
+        $sort      = in_array($request->query('sort'), $sortable) ? $request->query('sort') : 'created_at';
+        $direction = $request->query('direction') === 'asc' ? 'asc' : 'desc';
+
+        $leads = $query->orderBy($sort, $direction)->paginate(50)->withQueryString();
 
         return Inertia::render('System/Leads/Index', [
             'leads'   => $leads,
-            'filters' => $request->only(['search', 'category', 'status', 'trade']),
+            'filters' => $request->only(['search', 'category', 'status', 'trade', 'sort', 'direction']),
         ]);
     }
 
