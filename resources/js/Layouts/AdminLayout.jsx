@@ -1,14 +1,17 @@
-import { Link, router } from '@inertiajs/react';
+import { Link, router, usePage } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
 
-const navItems = [
-    { href: '/system/dashboard', label: 'Dashboard', icon: '📊' },
-    { href: '/system/leads', label: 'Leads', icon: '👥' },
-    { href: '/system/profile', label: 'Profile', icon: '👤' },
-];
-
 export default function AdminLayout({ children, title }) {
+    const { auth } = usePage().props;
+    const isAdmin = auth?.user?.role === 'admin';
     const [sidebarOpen, setSidebarOpen] = useState(false);
+
+    const navItems = [
+        { href: '/system/dashboard', label: 'Dashboard', icon: '📊' },
+        { href: '/system/leads', label: 'Leads', icon: '👥' },
+        ...(isAdmin ? [{ href: '/system/users', label: 'Users', icon: '🔑' }] : []),
+        { href: '/system/profile', label: 'Profile', icon: '👤' },
+    ];
 
     // Close sidebar on route change
     useEffect(() => {

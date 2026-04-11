@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Lead;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
@@ -14,7 +15,7 @@ class LeadController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Lead::query();
+        $query = Lead::query()->with('assignedUser:id,name');
 
         if ($search = $request->query('search')) {
             $query->where(function ($q) use ($search) {
@@ -33,19 +34,30 @@ class LeadController extends Controller
             $query->where('status', $status);
         }
 
+        if ($contactStatus = $request->query('contact_status')) {
+            $query->where('contact_status', $contactStatus);
+        }
+
+        if ($assignedTo = $request->query('assigned_to')) {
+            $query->where('assigned_to', $assignedTo);
+        }
+
         if ($trade = $request->query('trade')) {
             $query->where('trade_type', 'like', "%$trade%");
         }
 
-        $sortable  = ['business_name', 'trade_type', 'category', 'city', 'state', 'status', 'demo_views', 'tier', 'created_at'];
+        $sortable  = ['business_name', 'trade_type', 'category', 'city', 'state', 'status', 'demo_views', 'tier', 'created_at', 'contact_status'];
         $sort      = in_array($request->query('sort'), $sortable) ? $request->query('sort') : 'created_at';
         $direction = $request->query('direction') === 'asc' ? 'asc' : 'desc';
 
         $leads = $query->orderBy($sort, $direction)->paginate(50)->withQueryString();
 
+        $users = User::orderBy('name')->get(['id', 'name']);
+
         return Inertia::render('System/Leads/Index', [
             'leads'   => $leads,
-            'filters' => $request->only(['search', 'category', 'status', 'trade', 'sort', 'direction']),
+            'filters' => $request->only(['search', 'category', 'status', 'contact_status', 'assigned_to', 'trade', 'sort', 'direction']),
+            'users'   => $users,
         ]);
     }
 
@@ -94,18 +106,22 @@ class LeadController extends Controller
     public function update(Request $request, Lead $lead)
     {
         $data = $request->validate([
-            'business_name' => 'sometimes|string',
-            'trade_type'    => 'sometimes|string',
-            'category'      => 'sometimes|in:trades,lawyers,smb',
-            'contact_name'  => 'nullable|string',
-            'email'         => 'nullable|email',
-            'phone'         => 'nullable|string',
-            'city'          => 'sometimes|string',
-            'state'         => 'sometimes|string',
-            'tier'          => 'nullable|in:starter,growth,pro',
-            'status'        => 'sometimes|in:prospect,demo_sent,viewed,sold,active,suspended,cancelled',
-            'domain'        => 'nullable|string',
-            'notes'         => 'nullable|string',
+            'business_name'  => 'sometimes|string',
+            'trade_type'     => 'sometimes|string',
+            'category'       => 'sometimes|in:trades,lawyers,smb',
+            'contact_name'   => 'nullable|string',
+            'email'          => 'nullable|email',
+            'phone'          => 'nullable|string',
+            'city'           => 'sometimes|string',
+            'state'          => 'sometimes|string',
+            'tier'           => 'nullable|in:starter,growth,pro',
+            'status'         => 'sometimes|in:prospect,demo_sent,viewed,sold,active,suspended,cancelled',
+            'domain'         => 'nullable|string',
+            'notes'          => 'nullable|string',
+            'contact_status' => 'sometimes|in:not_contacted,attempted,contacted,follow_up,won,passed',
+            'contact_date'   => 'nullable|date',
+            'contact_notes'  => 'nullable|string',
+            'assigned_to'    => 'nullable|exists:users,id',
         ]);
 
         $old = $lead->status;

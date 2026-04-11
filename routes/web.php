@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LeadController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\StripeWebhookController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,16 @@ Route::prefix('system')->name('system.')->group(function () {
         Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
         Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+        // Admin-only routes
+        Route::middleware('admin')->group(function () {
+            Route::get('/users',              [UserController::class, 'index'])->name('users.index');
+            Route::get('/users/create',       [UserController::class, 'create'])->name('users.create');
+            Route::post('/users',             [UserController::class, 'store'])->name('users.store');
+            Route::get('/users/{user}/edit',  [UserController::class, 'edit'])->name('users.edit');
+            Route::put('/users/{user}',       [UserController::class, 'update'])->name('users.update');
+            Route::delete('/users/{user}',    [UserController::class, 'destroy'])->name('users.destroy');
+        });
     });
 });
 

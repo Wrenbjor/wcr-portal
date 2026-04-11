@@ -12,6 +12,24 @@ const STATUS_COLORS = {
     cancelled: 'bg-slate-800 text-slate-500',
 };
 
+const CONTACT_STATUS_COLORS = {
+    not_contacted: 'bg-slate-700 text-slate-400',
+    attempted:     'bg-orange-900/50 text-orange-300',
+    contacted:     'bg-blue-900/50 text-blue-300',
+    follow_up:     'bg-yellow-900/50 text-yellow-300',
+    won:           'bg-emerald-900/50 text-emerald-300',
+    passed:        'bg-slate-800 text-slate-500',
+};
+
+const CONTACT_STATUS_LABELS = {
+    not_contacted: 'Not Contacted',
+    attempted:     'Attempted',
+    contacted:     'Contacted',
+    follow_up:     'Follow Up',
+    won:           'Won',
+    passed:        'Passed',
+};
+
 const TIER_COLORS = {
     starter: 'text-slate-300',
     growth:  'text-[#C9A96E]',
@@ -23,20 +41,24 @@ function SortIcon({ column, sort, direction }) {
     return <span className="ml-1 text-[#C9A96E]">{direction === 'asc' ? '↑' : '↓'}</span>;
 }
 
-export default function Index({ leads, filters }) {
+export default function Index({ leads, filters, users }) {
     const [search, setSearch] = useState(filters.search ?? '');
     const [category, setCategory] = useState(filters.category ?? '');
     const [status, setStatus] = useState(filters.status ?? '');
+    const [contactStatus, setContactStatus] = useState(filters.contact_status ?? '');
+    const [assignedTo, setAssignedTo] = useState(filters.assigned_to ?? '');
     const sort = filters.sort ?? 'created_at';
     const direction = filters.direction ?? 'desc';
 
     function applyFilters(overrides = {}) {
         router.get('/system/leads', {
-            search: overrides.search ?? search,
-            category: overrides.category ?? category,
-            status: overrides.status ?? status,
-            sort: overrides.sort ?? sort,
-            direction: overrides.direction ?? direction,
+            search:         overrides.search         ?? search,
+            category:       overrides.category       ?? category,
+            status:         overrides.status         ?? status,
+            contact_status: overrides.contact_status ?? contactStatus,
+            assigned_to:    overrides.assigned_to    ?? assignedTo,
+            sort:           overrides.sort           ?? sort,
+            direction:      overrides.direction      ?? direction,
         }, { preserveState: true, replace: true });
     }
 
@@ -60,6 +82,24 @@ export default function Index({ leads, filters }) {
     function handleSearch(e) {
         e.preventDefault();
         applyFilters();
+    }
+
+    function handleClearFilters(e) {
+        e.preventDefault();
+        setSearch('');
+        setCategory('');
+        setStatus('');
+        setContactStatus('');
+        setAssignedTo('');
+        router.get('/system/leads', {}, { replace: true });
+    }
+
+    function updateContactStatus(lead, value) {
+        router.put(`/system/leads/${lead.id}`, { contact_status: value }, { preserveState: true, preserveScroll: true });
+    }
+
+    function updateAssignedTo(lead, value) {
+        router.put(`/system/leads/${lead.id}`, { assigned_to: value || null }, { preserveState: true, preserveScroll: true });
     }
 
     return (
@@ -107,10 +147,35 @@ export default function Index({ leads, filters }) {
                         <option value="cancelled">Cancelled</option>
                     </select>
 
+                    <select
+                        value={contactStatus}
+                        onChange={(e) => { setContactStatus(e.target.value); applyFilters({ contact_status: e.target.value }); }}
+                        className="bg-[#1e293b] border border-slate-700 text-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#C9A96E]"
+                    >
+                        <option value="">All Contact</option>
+                        <option value="not_contacted">Not Contacted</option>
+                        <option value="attempted">Attempted</option>
+                        <option value="contacted">Contacted</option>
+                        <option value="follow_up">Follow Up</option>
+                        <option value="won">Won</option>
+                        <option value="passed">Passed</option>
+                    </select>
+
+                    <select
+                        value={assignedTo}
+                        onChange={(e) => { setAssignedTo(e.target.value); applyFilters({ assigned_to: e.target.value }); }}
+                        className="bg-[#1e293b] border border-slate-700 text-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#C9A96E]"
+                    >
+                        <option value="">All Reps</option>
+                        {users.map((u) => (
+                            <option key={u.id} value={u.id}>{u.name}</option>
+                        ))}
+                    </select>
+
                     <Link
                         href="#"
                         className="bg-[#1e293b] border border-slate-700 text-slate-300 hover:text-white px-4 py-2 rounded-lg text-sm"
-                        onClick={(e) => { e.preventDefault(); router.get('/system/leads', {}, { replace: true }); setSearch(''); setCategory(''); setStatus(''); }}
+                        onClick={handleClearFilters}
                     >
                         Clear
                     </Link>
@@ -138,6 +203,14 @@ export default function Index({ leads, filters }) {
                                     <span className={`capitalize font-medium ${TIER_COLORS[lead.tier]}`}>{lead.tier}</span>
                                 )}
                             </div>
+                            <div className="mt-2 flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+                                <span className={`px-2 py-0.5 rounded text-xs font-medium ${CONTACT_STATUS_COLORS[lead.contact_status] ?? 'bg-slate-700 text-slate-400'}`}>
+                                    {CONTACT_STATUS_LABELS[lead.contact_status] ?? lead.contact_status}
+                                </span>
+                                {lead.assigned_user && (
+                                    <span className="text-xs text-slate-500">{lead.assigned_user.name}</span>
+                                )}
+                            </div>
                         </div>
                     ))}
                     {leads.data.length === 0 && (
@@ -153,9 +226,10 @@ export default function Index({ leads, filters }) {
                                 <tr className="border-b border-slate-700">
                                     <SortTh column="business_name">Business</SortTh>
                                     <SortTh column="trade_type">Trade</SortTh>
-                                    <SortTh column="category" className="hidden lg:table-cell">Category</SortTh>
                                     <SortTh column="city">City</SortTh>
                                     <SortTh column="status">Status</SortTh>
+                                    <SortTh column="contact_status">Contact</SortTh>
+                                    <th className="text-left px-4 py-3 text-slate-400 font-medium hidden xl:table-cell">Assigned To</th>
                                     <th
                                         className={`text-right px-4 py-3 text-slate-400 font-medium cursor-pointer select-none hover:text-slate-200 transition-colors hidden lg:table-cell ${sort === 'demo_views' ? 'text-slate-200' : ''}`}
                                         onClick={() => handleSort('demo_views')}
@@ -175,14 +249,37 @@ export default function Index({ leads, filters }) {
                                     >
                                         <td className="px-4 py-3 text-white font-medium">{lead.business_name}</td>
                                         <td className="px-4 py-3 text-slate-400">{lead.trade_type}</td>
-                                        <td className="px-4 py-3 hidden lg:table-cell">
-                                            <span className="capitalize text-slate-400">{lead.category}</span>
-                                        </td>
                                         <td className="px-4 py-3 text-slate-400">{lead.city}</td>
                                         <td className="px-4 py-3">
                                             <span className={`px-2 py-0.5 rounded text-xs font-medium capitalize ${STATUS_COLORS[lead.status] ?? 'bg-slate-700 text-slate-300'}`}>
                                                 {lead.status.replace('_', ' ')}
                                             </span>
+                                        </td>
+                                        <td className="px-4 py-3" onClick={(e) => e.stopPropagation()}>
+                                            <select
+                                                value={lead.contact_status ?? 'not_contacted'}
+                                                onChange={(e) => updateContactStatus(lead, e.target.value)}
+                                                className={`rounded px-2 py-0.5 text-xs font-medium border-0 cursor-pointer focus:outline-none focus:ring-1 focus:ring-[#C9A96E] ${CONTACT_STATUS_COLORS[lead.contact_status] ?? 'bg-slate-700 text-slate-400'}`}
+                                            >
+                                                <option value="not_contacted">Not Contacted</option>
+                                                <option value="attempted">Attempted</option>
+                                                <option value="contacted">Contacted</option>
+                                                <option value="follow_up">Follow Up</option>
+                                                <option value="won">Won</option>
+                                                <option value="passed">Passed</option>
+                                            </select>
+                                        </td>
+                                        <td className="px-4 py-3 hidden xl:table-cell" onClick={(e) => e.stopPropagation()}>
+                                            <select
+                                                value={lead.assigned_to ?? ''}
+                                                onChange={(e) => updateAssignedTo(lead, e.target.value)}
+                                                className="bg-transparent text-slate-400 text-xs border-0 cursor-pointer focus:outline-none focus:ring-1 focus:ring-[#C9A96E] rounded"
+                                            >
+                                                <option value="">Unassigned</option>
+                                                {users.map((u) => (
+                                                    <option key={u.id} value={u.id}>{u.name}</option>
+                                                ))}
+                                            </select>
                                         </td>
                                         <td className="px-4 py-3 text-right text-slate-300 hidden lg:table-cell">{lead.demo_views}</td>
                                         <td className="px-4 py-3 hidden lg:table-cell">
@@ -214,7 +311,7 @@ export default function Index({ leads, filters }) {
                                 ))}
                                 {leads.data.length === 0 && (
                                     <tr>
-                                        <td colSpan={8} className="px-4 py-8 text-center text-slate-500">No leads found.</td>
+                                        <td colSpan={9} className="px-4 py-8 text-center text-slate-500">No leads found.</td>
                                     </tr>
                                 )}
                             </tbody>

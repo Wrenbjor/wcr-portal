@@ -12,16 +12,23 @@ class Lead extends Model
         'city', 'state', 'repo_name', 'demo_code', 'demo_url', 'github_url',
         'tier', 'status', 'domain', 'stripe_customer_id', 'stripe_subscription_id',
         'demo_views', 'last_viewed_at', 'notes',
+        'contact_status', 'contact_date', 'contact_notes', 'assigned_to',
     ];
 
     protected $casts = [
         'last_viewed_at' => 'datetime',
-        'demo_views' => 'integer',
+        'contact_date'   => 'datetime',
+        'demo_views'     => 'integer',
     ];
 
     public function activityLogs(): HasMany
     {
         return $this->hasMany(ActivityLog::class);
+    }
+
+    public function assignedUser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\Models\User::class, 'assigned_to');
     }
 
     public static function generateDemoCode(): string
