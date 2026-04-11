@@ -80,7 +80,7 @@ class LeadController extends Controller
             'Phone', 'Email', 'Contact Name',
             'Status', 'Contact Status', 'Contact Date', 'Contact Notes',
             'Assigned To',
-            'Tier', 'Demo URL', 'GitHub URL', 'Demo Code', 'Demo Views', 'Last Viewed At',
+            'Tier', 'Demo Link', 'Demo Code', 'Demo Views', 'Last Viewed At',
             'Created At',
         ];
 
@@ -105,8 +105,7 @@ class LeadController extends Controller
                     $lead->contact_notes,
                     $lead->assignedUser?->name,
                     $lead->tier,
-                    $lead->demo_url,
-                    $lead->github_url,
+                    $lead->demo_code ? url('/demo/' . $lead->demo_code) : '',
                     $lead->demo_code,
                     $lead->demo_views,
                     $lead->last_viewed_at,
