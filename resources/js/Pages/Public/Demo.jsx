@@ -28,7 +28,7 @@ const TIERS = [
 
 export default function Demo({ lead, error }) {
     const [code, setCode] = useState('');
-    const [shelfOpen, setShelfOpen] = useState(true);
+    const [shelfOpen, setShelfOpen] = useState(false);
     const [loadingTier, setLoadingTier] = useState(null);
     const inputRef = useRef(null);
 
@@ -139,9 +139,9 @@ export default function Demo({ lead, error }) {
                 <button
                     onClick={() => setShelfOpen(!shelfOpen)}
                     className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#C9A96E] text-[#0f172a] font-bold py-3 text-center shadow-xl"
-                    aria-label={shelfOpen ? 'Close pricing' : 'View pricing'}
+                    aria-label={shelfOpen ? 'Close pricing' : 'Open pricing'}
                 >
-                    {shelfOpen ? '↓ Close' : '↑ View Pricing Plans'}
+                    {shelfOpen ? '↓ Close' : 'View Pricing Plans'}
                 </button>
 
                 {/* Desktop: side toggle handle */}
