@@ -139,22 +139,33 @@ class LeadController extends Controller
     {
         $data = $request->validate([
             'business_name' => 'required|string',
-            'trade_type'    => 'required|string',
-            'category'      => 'required|in:trades,lawyers,smb',
+            'github_url'    => ['required', 'url', 'regex:#^https?://github\.com/[^/]+/[^/]+/?$#i'],
+            'trade_type'    => 'nullable|string',
+            'category'      => 'nullable|in:trades,lawyers,smb',
             'contact_name'  => 'nullable|string',
             'email'         => 'nullable|email',
             'phone'         => 'nullable|string',
-            'city'          => 'required|string',
+            'city'          => 'nullable|string',
             'state'         => 'nullable|string',
-            'repo_name'     => 'required|string',
-            'demo_url'      => 'required|url',
-            'github_url'    => 'required|url',
             'notes'         => 'nullable|string',
+        ], [
+            'github_url.regex' => 'GitHub URL must look like https://github.com/owner/repo',
         ]);
 
-        $data['demo_code'] = Lead::generateDemoCode();
-        $data['status']    = 'prospect';
-        $data['state']     = $data['state'] ?? 'NJ';
+        // Parse owner/repo from github_url to derive repo_name + demo_url
+        preg_match('#^https?://github\.com/([^/]+)/([^/]+?)/?$#i', $data['github_url'], $matches);
+        $owner = $matches[1];
+        $repo  = preg_replace('/\.git$/i', '', $matches[2]);
+
+        $data['github_url'] = "https://github.com/{$owner}/{$repo}";
+        $data['repo_name']  = $repo;
+        $data['demo_url']   = "https://raw.githack.com/{$owner}/{$repo}/main/index.html";
+        $data['demo_code']  = Lead::generateDemoCode();
+        $data['status']     = 'prospect';
+        $data['category']   = $data['category']   ?? 'smb';
+        $data['trade_type'] = $data['trade_type'] ?? '';
+        $data['city']       = $data['city']       ?? '';
+        $data['state']      = $data['state']      ?? 'NJ';
 
         $lead = Lead::create($data);
 

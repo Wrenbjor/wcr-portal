@@ -1,4 +1,4 @@
-import { Head, Link, router } from '@inertiajs/react';
+import { Head, Link, router, useForm } from '@inertiajs/react';
 import { useState } from 'react';
 import AdminLayout from '@/Layouts/AdminLayout';
 
@@ -47,8 +47,32 @@ export default function Index({ leads, filters, users }) {
     const [status, setStatus] = useState(filters.status ?? '');
     const [contactStatus, setContactStatus] = useState(filters.contact_status ?? '');
     const [assignedTo, setAssignedTo] = useState(filters.assigned_to ?? '');
+    const [showNewLead, setShowNewLead] = useState(false);
     const sort = filters.sort ?? 'created_at';
     const direction = filters.direction ?? 'desc';
+
+    const newLead = useForm({
+        business_name: '',
+        github_url:    '',
+        trade_type:    '',
+        category:      'smb',
+        contact_name:  '',
+        email:         '',
+        phone:         '',
+        city:          '',
+        state:         'NJ',
+        notes:         '',
+    });
+
+    function submitNewLead(e) {
+        e.preventDefault();
+        newLead.post('/system/leads', {
+            onSuccess: () => {
+                newLead.reset();
+                setShowNewLead(false);
+            },
+        });
+    }
 
     function applyFilters(overrides = {}) {
         router.get('/system/leads', {
@@ -186,6 +210,14 @@ export default function Index({ leads, filters, users }) {
                     >
                         Export CSV
                     </a>
+
+                    <button
+                        type="button"
+                        onClick={() => setShowNewLead(true)}
+                        className="bg-[#C9A96E] text-[#0f172a] font-semibold px-4 py-2 rounded-lg text-sm hover:bg-[#b8934f] whitespace-nowrap"
+                    >
+                        + New Lead
+                    </button>
                 </div>
 
                 {/* Mobile card list */}
@@ -325,6 +357,173 @@ export default function Index({ leads, filters, users }) {
                         </table>
                     </div>
                 </div>
+
+                {/* New Lead modal */}
+                {showNewLead && (
+                    <div
+                        className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 py-6 overflow-y-auto"
+                        onClick={() => setShowNewLead(false)}
+                    >
+                        <div
+                            className="bg-[#1e293b] border border-slate-700 rounded-2xl w-full max-w-2xl my-auto"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <form onSubmit={submitNewLead} className="p-6 space-y-4">
+                                <div className="flex items-center justify-between">
+                                    <h2 className="text-white font-bold text-lg">Add New Lead</h2>
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowNewLead(false)}
+                                        className="text-slate-400 hover:text-white text-xl leading-none"
+                                    >
+                                        ×
+                                    </button>
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div className="sm:col-span-2">
+                                        <label className="block text-slate-400 text-xs mb-1">
+                                            Business Name <span className="text-red-400">*</span>
+                                        </label>
+                                        <input
+                                            type="text"
+                                            value={newLead.data.business_name}
+                                            onChange={(e) => newLead.setData('business_name', e.target.value)}
+                                            required
+                                            className="w-full bg-[#0f172a] border border-slate-700 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#C9A96E]"
+                                        />
+                                        {newLead.errors.business_name && (
+                                            <p className="text-red-400 text-xs mt-1">{newLead.errors.business_name}</p>
+                                        )}
+                                    </div>
+
+                                    <div className="sm:col-span-2">
+                                        <label className="block text-slate-400 text-xs mb-1">
+                                            GitHub Repo URL <span className="text-red-400">*</span>
+                                        </label>
+                                        <input
+                                            type="url"
+                                            value={newLead.data.github_url}
+                                            onChange={(e) => newLead.setData('github_url', e.target.value)}
+                                            required
+                                            placeholder="https://github.com/Wrenbjor/repo-name"
+                                            className="w-full bg-[#0f172a] border border-slate-700 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#C9A96E]"
+                                        />
+                                        {newLead.errors.github_url && (
+                                            <p className="text-red-400 text-xs mt-1">{newLead.errors.github_url}</p>
+                                        )}
+                                        <p className="text-slate-500 text-xs mt-1">
+                                            Demo URL will be derived automatically from the repo.
+                                        </p>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-slate-400 text-xs mb-1">Category</label>
+                                        <select
+                                            value={newLead.data.category}
+                                            onChange={(e) => newLead.setData('category', e.target.value)}
+                                            className="w-full bg-[#0f172a] border border-slate-700 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#C9A96E]"
+                                        >
+                                            <option value="smb">SMB</option>
+                                            <option value="trades">Trades</option>
+                                            <option value="lawyers">Lawyers</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-slate-400 text-xs mb-1">Trade Type</label>
+                                        <input
+                                            type="text"
+                                            value={newLead.data.trade_type}
+                                            onChange={(e) => newLead.setData('trade_type', e.target.value)}
+                                            placeholder="e.g. Plumbing"
+                                            className="w-full bg-[#0f172a] border border-slate-700 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#C9A96E]"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-slate-400 text-xs mb-1">Contact Name</label>
+                                        <input
+                                            type="text"
+                                            value={newLead.data.contact_name}
+                                            onChange={(e) => newLead.setData('contact_name', e.target.value)}
+                                            className="w-full bg-[#0f172a] border border-slate-700 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#C9A96E]"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-slate-400 text-xs mb-1">Phone</label>
+                                        <input
+                                            type="text"
+                                            value={newLead.data.phone}
+                                            onChange={(e) => newLead.setData('phone', e.target.value)}
+                                            className="w-full bg-[#0f172a] border border-slate-700 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#C9A96E]"
+                                        />
+                                    </div>
+
+                                    <div className="sm:col-span-2">
+                                        <label className="block text-slate-400 text-xs mb-1">Email</label>
+                                        <input
+                                            type="email"
+                                            value={newLead.data.email}
+                                            onChange={(e) => newLead.setData('email', e.target.value)}
+                                            className="w-full bg-[#0f172a] border border-slate-700 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#C9A96E]"
+                                        />
+                                        {newLead.errors.email && (
+                                            <p className="text-red-400 text-xs mt-1">{newLead.errors.email}</p>
+                                        )}
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-slate-400 text-xs mb-1">City</label>
+                                        <input
+                                            type="text"
+                                            value={newLead.data.city}
+                                            onChange={(e) => newLead.setData('city', e.target.value)}
+                                            className="w-full bg-[#0f172a] border border-slate-700 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#C9A96E]"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-slate-400 text-xs mb-1">State</label>
+                                        <input
+                                            type="text"
+                                            value={newLead.data.state}
+                                            onChange={(e) => newLead.setData('state', e.target.value)}
+                                            className="w-full bg-[#0f172a] border border-slate-700 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#C9A96E]"
+                                        />
+                                    </div>
+
+                                    <div className="sm:col-span-2">
+                                        <label className="block text-slate-400 text-xs mb-1">Notes</label>
+                                        <textarea
+                                            value={newLead.data.notes}
+                                            onChange={(e) => newLead.setData('notes', e.target.value)}
+                                            className="w-full bg-[#0f172a] border border-slate-700 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#C9A96E] min-h-20 resize-y"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="flex justify-end gap-2 pt-2">
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowNewLead(false)}
+                                        className="bg-[#0f172a] border border-slate-700 text-slate-300 hover:text-white px-4 py-2 rounded-lg text-sm"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        disabled={newLead.processing}
+                                        className="bg-[#C9A96E] text-[#0f172a] font-semibold px-5 py-2 rounded-lg hover:bg-[#b8934f] disabled:opacity-60 text-sm"
+                                    >
+                                        {newLead.processing ? 'Creating…' : 'Create Lead'}
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                )}
 
                 {/* Pagination */}
                 {leads.last_page > 1 && (
